@@ -1,0 +1,33 @@
+.storybook-header {
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #282626;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.storybook-header__navigation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.storybook-header img {
+  display: inline-block;
+  height: 30px;
+  transition: 0.25s transform cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.storybook-header img:hover {
+  display: inline-block;
+  height: 30px;
+  transform: scale(1.1);
+  cursor: pointer;
+}

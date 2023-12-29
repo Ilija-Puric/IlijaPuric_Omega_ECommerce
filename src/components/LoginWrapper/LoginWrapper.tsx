@@ -11,7 +11,6 @@ const LoginWrapper = ({ children }: LoginWrapperProps): JSX.Element => {
     gap: 20px;
     align-items: center;
     justify-content: center;
-    padding: 20px 16px;
     border-radius: 8px;
     width: 100%;
     height: 100%;
