@@ -6,6 +6,7 @@ interface ButtonProps {
   backgroundColor?: string;
   /**How large should the button be?*/
   size?: 'small' | 'medium' | 'large';
+  type?: 'button' | 'reset' | 'submit';
   /*** Button contents*/
   label: string;
   iconImage?: string;
@@ -21,13 +22,14 @@ export const Button = ({
   label,
   iconImage,
   outlined = false,
+  type = 'button',
   ...props
 }: ButtonProps) => {
   const mode = primary ? 'storybook-button--primary' : '';
   const isOutlined = outlined ? 'storybook-button--outlined' : '';
   return (
     <button
-      type="button"
+      type={type}
       className={['storybook-button', `storybook-button--${size}`, mode, isOutlined].join(' ')}
       style={{ backgroundColor }}
       {...props}
