@@ -9,6 +9,7 @@ interface ButtonProps {
   /*** Button contents*/
   label: string;
   iconImage?: string;
+  outlined?: boolean;
   /*** Optional click handler*/
   onClick?: () => void;
 }
@@ -19,13 +20,15 @@ export const Button = ({
   backgroundColor,
   label,
   iconImage,
+  outlined = false,
   ...props
 }: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+  const mode = primary ? 'storybook-button--primary' : '';
+  const isOutlined = outlined ? 'storybook-button--outlined' : '';
   return (
     <button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
+      className={['storybook-button', `storybook-button--${size}`, mode, isOutlined].join(' ')}
       style={{ backgroundColor }}
       {...props}
     >

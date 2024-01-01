@@ -26,11 +26,23 @@
   background-color: #ff7636;
 }
 
-.storybook-button--secondary {
-  color: #333;
+.storybook-button--outlined {
+  color: #ff7636;
+  border: 2px solid #ff7636;
   background-color: transparent;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+  transition:
+    border 0.35s cubic-bezier(0.075, 0.82, 0.165, 1),
+    color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    background 0.35s cubic-bezier(0.19, 1, 0.22, 1);
 }
+
+.storybook-button--outlined:hover {
+  background-color: #ff7636;
+  border: 2px solid transparent;
+  color: #fff;
+}
+
 .storybook-button--small {
   font-size: 14px;
   padding: 12px 16px;
