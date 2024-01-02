@@ -13,7 +13,6 @@ const theme = createTheme({
 });
 
 const Search = () => {
-  console.log(inputReset);
   const Search = styled.div`
     width: 100%;
     height: 100%;

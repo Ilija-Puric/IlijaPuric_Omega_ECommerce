@@ -1,6 +1,6 @@
 import { Button } from '../Button/Button';
 import shoppingCartSvg from '../assets/shopping-cart.svg';
-import heartSvg from '../assets/heart.svg';
+import heartSvg from '../assets/heart-empty.svg';
 import houseSvg from '../assets/house.svg';
 import './header.css';
 
@@ -23,7 +23,7 @@ export const Header = ({ user, onLogin, onLogout, onCartClick, onFavoriteClick, 
         {user ? (
           <>
             <button className="storybook-header__avatar" onClick={onLogout}>
-              <b>{user}</b>
+              <img src={user} alt="No user image" />
             </button>
           </>
         ) : (

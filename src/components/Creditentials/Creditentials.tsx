@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
+import { useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { Button } from '../../stories/Button/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -9,6 +9,9 @@ import styled from 'styled-components';
 import vegaLogo from '../../assets/vegait_logo_white.png';
 import inputReset from '../../constants';
 import userSchema from '../../validations/UserValidation.ts';
+import { Creators as AuthCreators } from '../../store/Auth/index';
+import { Creators as AlertMessageCreators } from '../../store/AlertMessage';
+import { useDispatch } from 'react-redux';
 
 const theme = createTheme({
   palette: {
@@ -36,7 +39,17 @@ const Wrapper = styled.form`
   ${inputReset}
 `;
 
+interface User {
+  name: string;
+  password: string;
+}
+
+const { toggleAlertMessage } = AlertMessageCreators;
+const { loginUser } = AuthCreators;
+
 const Creditentials = (): JSX.Element => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -45,8 +58,15 @@ const Creditentials = (): JSX.Element => {
     resolver: yupResolver(userSchema),
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  console.log(loginUser);
+  const onSubmit = ({ name, password }: User) => {
+    const user = { name, password };
+    dispatch(
+      loginUser({
+        user,
+        navigate,
+      })
+    );
   };
 
   return (
