@@ -1,11 +1,7 @@
 import axios from 'axios';
+import { Account } from '../../types';
 
-interface User {
-  name: string;
-  password: string;
-}
-
-export const login = ({ name, password }: User) => {
+export const login = ({ name, password }: Account) => {
   console.log(name, password);
   return axios({
     method: 'post',

@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
 import styled from 'styled-components';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import inputReset from '../../constants';
+import inputReset from '../../constants/index';
 import { Button } from '../../stories/Button/Button';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';

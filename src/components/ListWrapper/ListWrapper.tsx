@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { WrapperProps } from '../../types';
 
 const Wrapper = styled.ul`
   display: flex;
@@ -8,11 +9,7 @@ const Wrapper = styled.ul`
   flex-wrap: wrap;
 `;
 
-type ListWrapperProps = {
-  children: JSX.Element[];
-};
-
-const ListWrapper = ({ children }: ListWrapperProps) => {
+const ListWrapper = ({ children }: WrapperProps) => {
   return <Wrapper>{children}</Wrapper>;
 };
 

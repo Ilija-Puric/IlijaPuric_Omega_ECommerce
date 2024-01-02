@@ -1,10 +1,7 @@
 import styled from 'styled-components';
+import { WrapperProps } from '../../types';
 
-type LoginWrapperProps = {
-  children: JSX.Element;
-};
-
-const LoginWrapper = ({ children }: LoginWrapperProps): JSX.Element => {
+const LoginWrapper = ({ children }: WrapperProps): JSX.Element => {
   const Wrapper = styled.div`
     display: flex;
     flex-direction: column;

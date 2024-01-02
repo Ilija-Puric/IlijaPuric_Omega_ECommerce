@@ -1,6 +1,7 @@
 import { createReducer } from 'reduxsauce';
 
 import { Types as AlertMessageTypes } from './index';
+import { Message } from '../../types';
 
 const { TOGGLE_ALERT_MESSAGE, TOGGLE_ALERT_MESSAGE_SUCCESS, TOGGLE_ALERT_MESSAGE_FAILURE } = AlertMessageTypes;
 
@@ -8,17 +9,6 @@ const initialState = {
   messageType: '',
   message: '',
 };
-
-export interface Message {
-  payload: {
-    messageType: string;
-    message: string;
-  };
-  error: {
-    messageType: string;
-    message: string;
-  };
-}
 
 const toggleAlertMessage = (state: any) => ({
   ...state,

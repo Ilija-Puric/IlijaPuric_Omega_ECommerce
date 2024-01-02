@@ -1,31 +1,9 @@
 import { createReducer } from 'reduxsauce';
 import { Types as AuthTypes } from './index';
+import { Error, UserSchema } from '../../types';
 const { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE } = AuthTypes;
 
-type Gender = 'male' | 'female';
-type Error = {
-  payload: {
-    error: string;
-  };
-};
-interface User {
-  id: number;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  gender: Gender;
-  image: string;
-  token: string;
-}
-interface Response {
-  currentLoggedUser: null | User;
-  loading: boolean;
-  errorMessage: null | string;
-  userRegistered: boolean;
-}
-
-const initialState: Response = {
+const initialState: UserSchema = {
   currentLoggedUser: null,
   loading: false,
   errorMessage: null,

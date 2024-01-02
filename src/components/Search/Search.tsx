@@ -1,7 +1,13 @@
 import { TextField } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styled from 'styled-components';
-import inputReset from '../../constants/index.tsx';
+import inputReset from '../../constants/index.ts';
+import { useEffect, useState } from 'react';
+import { useDebounce } from '../../hooks/useDebounce.ts';
+import { Creators as ProductCreators } from '../../store/Product';
+import { useDispatch } from 'react-redux';
+
+const { getAllProducts } = ProductCreators;
 
 const theme = createTheme({
   palette: {
@@ -11,21 +17,39 @@ const theme = createTheme({
     },
   },
 });
+const Input = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 100px 40px 0 40px;
+  padding-top: 100px;
+  ${inputReset}
+`;
 
 const Search = () => {
-  const Search = styled.div`
-    width: 100%;
-    height: 100%;
-    padding: 100px 40px 0 40px;
-    padding-top: 100px;
-    ${inputReset}
-  `;
+  const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
+  const debouncedValue = useDebounce<string>(search, 500);
+
+  useEffect(() => {
+    console.log('CHANGE');
+    dispatch(getAllProducts({ q: search }));
+  }, [debouncedValue]);
+
   return (
-    <Search>
+    <Input>
       <ThemeProvider theme={theme}>
-        <TextField id="search" label="Search" variant="outlined" fullWidth />
+        <TextField
+          id="search"
+          label="Search"
+          variant="outlined"
+          fullWidth
+          value={search}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearch(e.target.value);
+          }}
+        />
       </ThemeProvider>
-    </Search>
+    </Input>
   );
 };
 

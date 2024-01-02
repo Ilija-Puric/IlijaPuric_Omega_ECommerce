@@ -1,6 +1,6 @@
 import { put, delay } from 'redux-saga/effects';
 import { Types as AlertMessageTypes } from './index';
-import { Message } from './Reducer';
+import { Message } from '../../types/index';
 
 const { TOGGLE_ALERT_MESSAGE_SUCCESS, TOGGLE_ALERT_MESSAGE_FAILURE } = AlertMessageTypes;
 export function* toggleAlertMessage({ payload }: Message) {

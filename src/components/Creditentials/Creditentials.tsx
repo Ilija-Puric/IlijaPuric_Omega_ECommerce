@@ -7,11 +7,12 @@ import { Button } from '../../stories/Button/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styled from 'styled-components';
 import vegaLogo from '../../assets/vegait_logo_white.png';
-import inputReset from '../../constants';
+import inputReset from '../../constants/index';
 import userSchema from '../../validations/UserValidation.ts';
 import { Creators as AuthCreators } from '../../store/Auth/index';
 import { Creators as AlertMessageCreators } from '../../store/AlertMessage';
 import { useDispatch } from 'react-redux';
+import { Account } from '../../types/index.ts';
 
 const theme = createTheme({
   palette: {
@@ -39,11 +40,6 @@ const Wrapper = styled.form`
   ${inputReset}
 `;
 
-interface User {
-  name: string;
-  password: string;
-}
-
 const { toggleAlertMessage } = AlertMessageCreators;
 const { loginUser } = AuthCreators;
 
@@ -59,7 +55,7 @@ const Creditentials = (): JSX.Element => {
   });
 
   console.log(loginUser);
-  const onSubmit = ({ name, password }: User) => {
+  const onSubmit = ({ name, password }: Account) => {
     const user = { name, password };
     dispatch(
       loginUser({
