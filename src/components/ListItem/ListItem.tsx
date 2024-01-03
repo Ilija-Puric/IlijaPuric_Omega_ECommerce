@@ -87,7 +87,7 @@ const ListItem = ({ id, price, quantity, thumbnail, title }: LocalProduct) => {
         <img src={thumbnail} alt={title} />
         <p className="list-item__title">{title}</p>
         <p className="list-item__quantity">Quantity: {quantity}</p>
-        <p className="list-item__sum">Sum: {price}$</p>
+        <p className="list-item__sum">Sum: {price * quantity}$</p>
       </div>
       <div>
         <Button

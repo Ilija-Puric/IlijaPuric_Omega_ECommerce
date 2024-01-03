@@ -52,6 +52,11 @@ const Checkout = () => {
     return currentLoggedUser && localProducts?.length > 0;
   }, [currentLoggedUser, localProducts]);
 
+  const sumWithInitial = localProducts.reduce(function (acc, { price, quantity }) {
+    return price * quantity + acc;
+  }, 0);
+
+  console.log('sum', sumWithInitial);
   return (
     <Wrapper className="checkout">
       <h1>Checkout</h1>
@@ -71,7 +76,7 @@ const Checkout = () => {
               />
             ))}
           </ListWrapper>
-          <p className="checkout__total">Total: SUM()$</p>
+          <p className="checkout__total">Total: {sumWithInitial}$</p>
         </>
       ) : (
         <p>No items added to cart</p>
