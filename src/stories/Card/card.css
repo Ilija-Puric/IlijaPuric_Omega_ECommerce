@@ -20,6 +20,10 @@
   font-family: 'Noto Sans', sans-serif;
 }
 
+.storybook-card__title:hover,
+.storybook-card__image:hover {
+  cursor: pointer;
+}
 .storybook-card__price {
   color: #807b76;
 }

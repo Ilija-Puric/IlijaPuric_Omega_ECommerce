@@ -38,6 +38,12 @@ const Wrapper = styled.form`
   }
 
   ${inputReset}
+
+  @media screen and (max-width:800px) {
+    & {
+      padding: 0 20px;
+    }
+  }
 `;
 
 const { toggleAlertMessage } = AlertMessageCreators;
@@ -54,7 +60,6 @@ const Creditentials = (): JSX.Element => {
     resolver: yupResolver(userSchema),
   });
 
-  console.log(loginUser);
   const onSubmit = ({ name, password }: Account) => {
     const user = { name, password };
     dispatch(

@@ -60,8 +60,8 @@ const setCartState = (state: any) => ({
 });
 
 const setCartStateSuccess = (state: CartSchema, { payload, action }: ProductOrder) => {
-  const { id } = payload;
-  console.log(id);
+  const { id, quantity } = payload;
+  console.log('PAYLOAD SUCCESS CART', payload);
   const existingProductIndex = state.localProducts?.findIndex(({ id: localId }) => localId === id);
   console.log(existingProductIndex);
   if (existingProductIndex !== -1) {
@@ -74,8 +74,9 @@ const setCartStateSuccess = (state: CartSchema, { payload, action }: ProductOrde
         state.localProducts[existingProductIndex].quantity -= 1;
       }
     } else if (action === 'empty') {
-      console.log('empty');
       state.localProducts.splice(existingProductIndex, 1);
+    } else if (action === 'replace') {
+      state.localProducts[existingProductIndex].quantity = quantity;
     }
   } else {
     state.localProducts = [...state.localProducts, payload];

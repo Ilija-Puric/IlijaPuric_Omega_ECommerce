@@ -66,6 +66,12 @@ const Wrapper = styled.div`
   }
 
   @media screen and (max-width: 800px) {
+    & {
+      padding: 100px 20px;
+    }
+    .receipt__container {
+      padding: 50px 20px;
+    }
     .receipt__item {
       height: 100%;
 
@@ -107,7 +113,7 @@ const Receipt = () => {
               <h3 className="text--indicator">Recipient</h3>
               <p>Adress: {address}</p>
               <p>Phone number: {phoneNumber}</p>
-              {additionalMessage && <p>{additionalMessage}</p>}
+              {additionalMessage && <p>Note: {additionalMessage}</p>}
             </div>
             <ul className="receipt__items">
               <>

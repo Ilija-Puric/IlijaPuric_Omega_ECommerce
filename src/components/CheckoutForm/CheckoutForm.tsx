@@ -26,6 +26,7 @@ const Form = styled.form`
   gap: 12px;
   width: 100%;
   height: 100%;
+  max-width: 800px;
   ${inputReset}
 `;
 

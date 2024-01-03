@@ -24,13 +24,4 @@ export const fetchProductById = (id: string) => {
   return axios.get(`${BASE_URL}/${id}`);
 };
 
-// export const fetchAllProductsIds = (listIds) => {
-//   return axios.get(`/api/v1/projects?ids=${listIds}`);
-// };
-
-// // tvoje stavi
-// export const changeProduct = (payload) => {
-//   return axios.patch(`/api/v1/project/${payload.projectid}`, payload.changedProject);
-// };
-
 export default fetchAllProducts;

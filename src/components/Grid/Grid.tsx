@@ -40,6 +40,11 @@ const Wrapper = styled.div`
       font-size: 28px;
     }
   }
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 1fr;
+    padding: 50px 20px;
+  }
 `;
 
 const { getAllProducts } = ProductCreators;
@@ -75,7 +80,6 @@ const Grid = () => {
               label: 'Add to cart',
               onClickFavorite: () => console.log('API CALL'),
               onClick: () => {
-                console.log('CLICKED BTN');
                 dispatch(setCartState({ data: { id, thumbnail, price, title, quantity: 1 }, action: 'add' }));
               },
             }}

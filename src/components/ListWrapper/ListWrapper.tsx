@@ -12,6 +12,12 @@ const Wrapper = styled.ul`
   &.wrapper--shrink {
     grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
   }
+
+  @media screen and (max-width: 800px) {
+    & {
+      grid-template-columns: 1fr !important;
+    }
+  }
 `;
 
 const ListWrapper = ({ children, total }: ListWrapperProps) => {

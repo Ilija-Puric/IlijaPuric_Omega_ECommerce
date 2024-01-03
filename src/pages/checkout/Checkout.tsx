@@ -42,21 +42,19 @@ const Wrapper = styled.div`
       width: 100%;
     }
   }
+  @media screen and (max-width: 800px) {
+    padding: 100px 20px;
+  }
 `;
 
 const Checkout = () => {
   const { localProducts }: CartSchema = useSelector(({ cart }) => cart);
   const { currentLoggedUser } = useSelector(({ auth }) => auth);
 
-  const isCheckoutPossible = useMemo(() => {
-    return currentLoggedUser && localProducts?.length > 0;
-  }, [currentLoggedUser, localProducts]);
-
   const sumWithInitial = localProducts.reduce(function (acc, { price, quantity }) {
     return price * quantity + acc;
   }, 0);
 
-  console.log('sum', sumWithInitial);
   return (
     <Wrapper className="checkout">
       <h1>Checkout</h1>
@@ -81,7 +79,7 @@ const Checkout = () => {
       ) : (
         <p>No items added to cart</p>
       )}
-      {isCheckoutPossible && (
+      {currentLoggedUser && localProducts?.length > 0 && (
         <>
           <h2>Shipping</h2>
           <CheckoutForm />

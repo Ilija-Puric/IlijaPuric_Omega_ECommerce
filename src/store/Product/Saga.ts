@@ -2,6 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import { Types as ProductTypes } from './index';
 import { fetchAllProducts, fetchProductById } from './Api';
 import { Creators as AlertMessageCreators } from '../AlertMessage';
+import { Id } from '../../types';
 const { GET_ALL_PRODUCTS_SUCCESS, GET_ALL_PRODUCTS_FAILURE, GET_PRODUCT_BY_ID_SUCCESS, GET_PRODUCT_BY_ID_FAILURE } =
   ProductTypes;
 const { toggleAlertMessage } = AlertMessageCreators;
@@ -27,13 +28,13 @@ export function* getAllProducts({ payload = {} }): Generator<any> {
   }
 }
 
-export function* getProductByID({ payload }): Generator<any> {
+export function* getProductByID({ payload: { id } }: Id): Generator<any> {
   try {
-    const response = yield call(fetchProductById, payload?.id);
-    const { data } = response as any;
+    const { data }: any = yield call(fetchProductById, id);
+    console.log(data);
     yield put({
       type: GET_PRODUCT_BY_ID_SUCCESS,
-      // payload: [responseFinal, projectUsersData, projectGroupsData],
+      payload: data,
     });
   } catch (error) {
     yield put({

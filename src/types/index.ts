@@ -3,7 +3,7 @@ export interface Product {
   title: string;
   description: string;
   price: number;
-  discountedPercentage: number;
+  discountPercentage: number;
   rating: number;
   stock: number;
   brand: number;
@@ -19,7 +19,7 @@ export interface CartProduct {
   quantity: number;
 }
 
-export type Action = 'empty' | 'add' | 'subtract';
+export type Action = 'empty' | 'add' | 'subtract' | 'replace';
 export interface LocalProduct extends CartProduct {
   title: string;
   description: string;
@@ -142,3 +142,9 @@ export interface DefaultPayload {
   type: string;
   payload: Cart;
 }
+
+export type Id = {
+  payload: {
+    id: string;
+  };
+};

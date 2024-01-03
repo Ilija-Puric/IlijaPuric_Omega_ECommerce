@@ -23,12 +23,16 @@ const Input = styled.div`
   padding: 100px 40px 0 40px;
   padding-top: 100px;
   ${inputReset}
+
+  @media screen and (max-width: 800px) {
+    padding: 100px 20px 0 20px;
+  }
 `;
 
 const Search = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
-  const debouncedValue = useDebounce<string>(search, 500);
+  const debouncedValue = useDebounce<string>(search, 400);
 
   useEffect(() => {
     console.log('CHANGE');

@@ -52,16 +52,14 @@ const getProductByID = (state: any) => ({
   errorMessage: null,
 });
 
-const getProductByIDSuccess = (state: any, { payload }: any) => ({
-  ...state,
-  project: payload[0],
-  totalPagesUsers: payload[1].totalPagesUsers,
-  totalElementsUsers: payload[1].totalElements,
-  totalPagesGroups: payload[2].totalPagesGroups,
-  totalElementsGroups: payload[2].totalElements,
-  loading: false,
-  errorMessage: null,
-});
+const getProductByIDSuccess = (state: any, { payload }: any) => {
+  return {
+    ...state,
+    product: payload,
+    loading: false,
+    errorMessage: null,
+  };
+};
 
 const getProductByIDFailure = (state: any, { error }: any) => ({
   ...state,

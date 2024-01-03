@@ -11,6 +11,7 @@ interface ButtonProps {
   label: string;
   iconImage?: string;
   outlined?: boolean;
+  disabled?: boolean;
   /*** Optional click handler*/
   onClick?: () => void;
 }
@@ -23,6 +24,8 @@ export const Button = ({
   iconImage,
   outlined = false,
   type = 'button',
+  onClick = () => {},
+  disabled = false,
   ...props
 }: ButtonProps) => {
   const mode = primary ? 'storybook-button--primary' : '';
@@ -30,8 +33,17 @@ export const Button = ({
   return (
     <button
       type={type}
-      className={['storybook-button', `storybook-button--${size}`, mode, isOutlined].join(' ')}
+      className={[
+        'storybook-button',
+        `storybook-button--${size}`,
+        `${disabled ? 'storybook-button--disabled' : ''}`,
+        mode,
+        isOutlined,
+      ].join(' ')}
       style={{ backgroundColor }}
+      onClick={() => {
+        !disabled && onClick();
+      }}
       {...props}
     >
       {iconImage && <img src={iconImage} alt="Missing icon image" />}
