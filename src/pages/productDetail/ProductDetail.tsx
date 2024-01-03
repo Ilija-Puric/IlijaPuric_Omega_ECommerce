@@ -17,12 +17,12 @@ const { setCartState } = CartCreators;
 const Product = styled.div`
   height: 100%;
   width: 100%;
-  padding: 100px 40px;
+  padding: 0 40px;
   color: #fff;
 
   .product__container {
     width: 100%;
-    padding: 100px;
+    padding-top: 100px;
     border-radius: 12px;
     margin: 0 auto;
     display: grid;
@@ -41,7 +41,6 @@ const Product = styled.div`
     gap: 20px;
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 20px;
   }
   .product__main-text {
     color: #b7b4b2d2;
@@ -59,7 +58,7 @@ const Product = styled.div`
     height: 100%;
     width: 100%;
     position: relative;
-    margin-top: 20px;
+    padding-top: 20px;
     img {
       width: 100%;
       border-radius: 8px;
@@ -72,7 +71,7 @@ const Product = styled.div`
   .product__thumbnail__images {
     display: flex;
     gap: 20px;
-    margin-top: 20px;
+    padding-top: 20px;
     img {
       height: 220px;
       box-shadow:
@@ -90,7 +89,7 @@ const Product = styled.div`
   .product__detail {
     display: flex;
     gap: 20px;
-    margin-top: 20px;
+    padding-top: 5px;
   }
   .product__detail-text {
     font-size: 20px;
@@ -108,11 +107,16 @@ const Product = styled.div`
   .product__controls {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
   }
 
   .product__actions {
     width: 300px;
+    height: fit-content;
+    padding: 20px;
+    background-color: #2f2d2b;
+    border-radius: 8px;
   }
   .product__actions button {
     width: 100%;
@@ -123,15 +127,17 @@ const Product = styled.div`
     padding-bottom: 10px;
     border-bottom: 2px solid #fff;
     font-size: 20px;
-    margin-bottom: 40px;
   }
   .product__main-wrapper {
     max-width: 1200px;
+    height: 100%;
   }
   @media screen and (max-width: 1024px) {
     .product__container {
       width: 100%;
-      padding: 0;
+      padding: 100px 0;
+      padding-left: 0;
+      padding-right: 0;
       display: flex;
       flex-direction: column;
     }
@@ -150,10 +156,29 @@ const Product = styled.div`
       font-size: 28px;
       gap: 8px;
     }
+    .product__controls button {
+      width: fit-content;
+    }
+    .product__cart-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
   }
   @media screen and (max-width: 800px) {
     & {
-      padding: 100px 20px;
+      padding: 0 20px;
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .product__controls,
+    .product__controls button {
+      width: 100%;
+    }
+    .product__cart-buttons {
+      flex-direction: column;
+      gap: 0;
     }
   }
 `;
@@ -235,32 +260,34 @@ const ProductDetail = () => {
             </div>
             <div className="product__actions">
               <p className="product__cart-header">Cart options</p>
-              <div className="product__controls">
+              <div className="product__cart-buttons">
+                <div className="product__controls">
+                  <Button
+                    onClick={() => setCounter((prevState) => prevState + 1)}
+                    label="+1"
+                    primary={false}
+                    outlined={true}
+                  />
+                  <Button
+                    onClick={() =>
+                      setCounter((prevState) => {
+                        console.log('MINUS');
+                        return prevState - 1;
+                      })
+                    }
+                    disabled={counter <= 0}
+                    label="-1"
+                    primary={false}
+                    outlined={true}
+                  />
+                </div>
                 <Button
-                  onClick={() => setCounter((prevState) => prevState + 1)}
-                  label="+1"
-                  primary={false}
-                  outlined={true}
-                />
-                <Button
-                  onClick={() =>
-                    setCounter((prevState) => {
-                      console.log('MINUS');
-                      return prevState - 1;
-                    })
-                  }
+                  label={`Add to cart (${counter})`}
+                  primary
                   disabled={counter <= 0}
-                  label="-1"
-                  primary={false}
-                  outlined={true}
+                  onClick={() => handleQuantityChange(counter, 'replace')}
                 />
               </div>
-              <Button
-                label={`Add to cart (${counter})`}
-                primary
-                disabled={counter <= 0}
-                onClick={() => handleQuantityChange(counter, 'replace')}
-              />
             </div>
           </>
         ) : (
