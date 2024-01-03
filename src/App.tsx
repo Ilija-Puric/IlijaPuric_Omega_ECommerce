@@ -5,6 +5,8 @@ import Navigation from './components/Navigation/Navigation';
 import Checkout from './pages/checkout/Checkout';
 import { Provider } from 'react-redux';
 import configureStore from './store/CreateStore';
+import Receipt from './pages/recepit/Receipt';
+import NotFound from './pages/notFound/NotFound';
 
 export const { store, persistor } = configureStore();
 
@@ -18,6 +20,8 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout/:id" element={<Receipt />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -15,8 +15,7 @@ const Wrapper = styled.ul`
 `;
 
 const ListWrapper = ({ children, total }: ListWrapperProps) => {
-  console.log(total);
-  return <Wrapper className={`${total <= 6 && total > 1 && 'wrapper--shrink'}`}>{children}</Wrapper>;
+  return <Wrapper className={`${total <= 6 && total >= 1 ? 'wrapper--shrink' : ''}`}>{children}</Wrapper>;
 };
 
 export default ListWrapper;

@@ -6,6 +6,10 @@ import { Button } from '../../stories/Button/Button';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import shippingSchema from '../../validations/ShippingValidation';
+import { useDispatch, useSelector } from 'react-redux';
+import { CartProduct, CartSchema } from '../../types';
+import { Creators as CartCreators } from '../../store/Cart';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -25,7 +29,11 @@ const Form = styled.form`
   ${inputReset}
 `;
 
+const { createCart } = CartCreators;
+
 const CheckoutForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -34,8 +42,22 @@ const CheckoutForm = () => {
     resolver: yupResolver(shippingSchema),
   });
 
+  const { localProducts }: CartSchema = useSelector(({ cart }) => cart);
+
   const onSubmit = (data: any) => {
-    console.log(data);
+    const cartProducts: CartProduct[] = localProducts.map(({ id, quantity }) => {
+      return { id, quantity };
+    });
+    dispatch(
+      createCart({
+        products: {
+          userId: 1,
+          products: cartProducts,
+        },
+        contact: data,
+      })
+    );
+    navigate('/checkout/1');
   };
 
   return (
@@ -87,14 +109,7 @@ const CheckoutForm = () => {
             />
           )}
         />
-        <Button
-          primary
-          label="Buy"
-          type="submit"
-          onClick={() => {
-            console.log('buy');
-          }}
-        />
+        <Button primary label="Buy" type="submit" />
       </ThemeProvider>
     </Form>
   );

@@ -59,7 +59,7 @@ const Grid = () => {
   }, []);
 
   return (
-    <Wrapper className={`${totalElements <= 4 && totalElements > 0 && 'wrapper--shrink'}`}>
+    <Wrapper className={`${totalElements <= 4 && totalElements > 0 ? 'wrapper--shrink' : ''}`}>
       {isProductsAvailable &&
         allProducts?.map(({ id, thumbnail, price, title }) => (
           <Card
@@ -76,18 +76,7 @@ const Grid = () => {
               onClickFavorite: () => console.log('API CALL'),
               onClick: () => {
                 console.log('CLICKED BTN');
-                dispatch(setCartState({ id, thumbnail, price, title, quantity: 1 }));
-                // dispatch(
-                //   createCart({
-                //     userId: 1,
-                //     products: [
-                //       {
-                //         id,
-                //         quantity: 1,
-                //       },
-                //     ],
-                //   })
-                // );
+                dispatch(setCartState({ data: { id, thumbnail, price, title, quantity: 1 }, action: 'add' }));
               },
             }}
           />

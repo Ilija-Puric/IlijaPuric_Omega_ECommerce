@@ -10,14 +10,23 @@ export interface Product {
   category: string;
   thumbnail: string;
   images: string[];
+  quantity?: number;
+  total?: number;
 }
-export interface LocalProduct {
+
+export interface CartProduct {
   id: number;
+  quantity: number;
+}
+
+export type Action = 'empty' | 'add' | 'subtract';
+export interface LocalProduct extends CartProduct {
   title: string;
   description: string;
   price: number;
   thumbnail: string;
-  quantity: number;
+  total?: number;
+  handleDelete?: () => void;
 }
 export interface ProductSchema {
   allProducts: Product[] | null;
@@ -93,21 +102,43 @@ export interface ProductParams {
 }
 
 export interface Cart {
-  id: number;
+  userId: number;
   products: Product[];
-  total: number;
-  totalProducts: number;
-  totalQuantity: number;
+  id?: number;
+  total?: number;
+  totalProducts?: number;
+  totalQuantity?: number;
+  discountedTotal?: number;
 }
 
 export interface CartSchema {
+  id: number | null;
   allProducts: Product[] | null;
   localProducts: LocalProduct[];
   totalElements: number;
+  totalProducts: number;
+  totalQuantity: number;
+  total: number;
+  address: string;
+  phoneNumber: string;
+  additionalMessage: string;
   loading: boolean;
   errorMessage: string | null;
 }
 
 export interface ProductOrder {
   payload: LocalProduct;
+  action: Action;
+}
+
+export interface ProductPayload {
+  payload: {
+    data: LocalProduct;
+    action: Action;
+  };
+}
+
+export interface DefaultPayload {
+  type: string;
+  payload: Cart;
 }

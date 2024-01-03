@@ -6,6 +6,7 @@ import ListWrapper from '../../components/ListWrapper/ListWrapper';
 import CheckoutForm from '../../components/CheckoutForm/CheckoutForm';
 import { CartSchema } from '../../types';
 import { Creators as CartCreators } from '../../store/Cart';
+import { useMemo } from 'react';
 
 const Wrapper = styled.div`
   display: flex;
@@ -43,36 +44,45 @@ const Wrapper = styled.div`
   }
 `;
 
-const { createCart, setCartState } = CartCreators;
-
 const Checkout = () => {
   const { localProducts }: CartSchema = useSelector(({ cart }) => cart);
   const { currentLoggedUser } = useSelector(({ auth }) => auth);
-  console.log(localProducts);
+
+  const isCheckoutPossible = useMemo(() => {
+    return currentLoggedUser && localProducts?.length > 0;
+  }, [currentLoggedUser, localProducts]);
+
   return (
     <Wrapper className="checkout">
       <h1>Checkout</h1>
       <h2>Items</h2>
-      <ListWrapper total={localProducts?.length}>
-        {localProducts?.map(({ id, description, price, thumbnail, quantity, title }) => (
-          <ListItem
-            key={id}
-            id={id}
-            description={description}
-            price={price}
-            thumbnail={thumbnail}
-            quantity={quantity}
-            title={title}
-          />
-        ))}
-      </ListWrapper>
-      <p className="checkout__total">Total: 240$</p>
-      {currentLoggedUser ? (
+      {localProducts?.length > 0 ? (
+        <>
+          <ListWrapper total={localProducts?.length}>
+            {localProducts?.map(({ id, description, price, thumbnail, quantity, title }) => (
+              <ListItem
+                key={id}
+                id={id}
+                description={description}
+                price={price}
+                thumbnail={thumbnail}
+                quantity={quantity}
+                title={title}
+              />
+            ))}
+          </ListWrapper>
+          <p className="checkout__total">Total: SUM()$</p>
+        </>
+      ) : (
+        <p>No items added to cart</p>
+      )}
+      {isCheckoutPossible && (
         <>
           <h2>Shipping</h2>
           <CheckoutForm />
         </>
-      ) : (
+      )}
+      {!currentLoggedUser && (
         <div>
           <p>
             You need to be logged in to make a shipment,

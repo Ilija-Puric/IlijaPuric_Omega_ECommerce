@@ -2,23 +2,26 @@ import { call, put } from 'redux-saga/effects';
 import { Types as CartTypes } from './index';
 import { createNewCart } from './Api';
 import { Creators as AlertMessageCreators } from '../AlertMessage';
+import { LocalProduct, ProductOrder, ProductPayload } from '../../types';
 
 const { CREATE_CART_SUCCESS, CREATE_CART_FAILURE, SET_CART_STATE_SUCCESS, SET_CART_STATE_FAILURE } = CartTypes;
 
 const { toggleAlertMessage } = AlertMessageCreators;
 
-export function* createCart({ payload }: any) {
+export function* createCart({ payload: { products, contact } }: any) {
   try {
-    console.log('SAGA', payload);
-    const { data } = yield call(createNewCart, payload);
+    console.log('SAGA', products);
+    console.log(contact);
+    const { data } = yield call(createNewCart, products);
+    console.log(data);
     yield put({
       type: CREATE_CART_SUCCESS,
-      payload: data,
+      payload: { ...data, ...contact },
     });
     yield put(
       toggleAlertMessage({
         messageType: 'success',
-        message: 'You have successfully an item to the cart',
+        message: 'You have successfully created a cart',
       })
     );
   } catch (error) {
@@ -35,20 +38,23 @@ export function* createCart({ payload }: any) {
   }
 }
 
-export function* setCartState({ payload }: any) {
+export function* setCartState({ payload: { data, action } }: ProductPayload) {
   try {
-    console.log('SAGA SET CART STATE', payload);
+    console.log('SAGA SET CART STATE', data);
+    console.log('the acction', action);
     yield put({
       type: SET_CART_STATE_SUCCESS,
-      payload,
+      payload: data,
+      action,
     });
     yield put(
       toggleAlertMessage({
         messageType: 'success',
-        message: 'You have successfully an item to the cart',
+        message: 'You have succesfully altered the local cart',
       })
     );
   } catch (error) {
+    console.log(error);
     yield put({
       type: SET_CART_STATE_FAILURE,
       errorMessage: error,
