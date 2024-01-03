@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { CircularProgress, TextField } from '@mui/material';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartProduct, CartSchema } from '../../types';
@@ -44,6 +44,7 @@ const Wrapper = styled.div`
     display: flex;
     gap: 10px;
     justify-content: space-between;
+    flex-wrap: wrap;
     img {
       height: 100%;
       width: 300px;
@@ -54,11 +55,28 @@ const Wrapper = styled.div`
       display: flex;
       flex-direction: column;
       gap: 5px;
+      width: 200px;
     }
   }
 
   .text--indicator {
     color: #ff590b;
+  }
+
+  @media screen and (max-width: 800px) {
+    height: 100%;
+    position: relative;
+    transform: none;
+    top: auto;
+    left: auto;
+    .receipt__item {
+      height: 100%;
+
+      img {
+        height: 150px;
+        width: 100%;
+      }
+    }
   }
 `;
 
@@ -119,7 +137,9 @@ const Receipt = () => {
           <Button label="Go back" onClick={onClickHandler} primary />
         </>
       ) : (
-        <div>loading</div>
+        <CircularProgress
+          sx={{ color: '#ff590b', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}
+        />
       )}
     </Wrapper>
   );
