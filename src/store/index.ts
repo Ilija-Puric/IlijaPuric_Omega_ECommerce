@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history';
 import AlertMessageReducer from './AlertMessage/Reducer';
 import AuthReducer from './Auth/Reducer';
 import ProductReducer from './Product/Reducer';
+import CartReducer from './Cart/Reducer';
 
 const history = createBrowserHistory();
 
@@ -12,4 +13,5 @@ export default combineReducers({
   alertMessage: AlertMessageReducer,
   auth: AuthReducer,
   products: ProductReducer,
+  cart: CartReducer,
 });

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -6,15 +6,20 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { Card } from '../../stories/Card/Card';
 import { Creators as ProductCreators } from '../../store/Product';
+import { Creators as CartCreators } from '../../store/Cart';
 import NotFoundSvg from '../NotFoundSvg/NotFoundSvg';
 import { ProductSchema } from '../../types';
 
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 20px;
+  gap: 80px;
   padding: 50px 40px;
   position: relative;
+
+  &.wrapper--shrink {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 400px));
+  }
   .wrapper__not-found {
     width: 100%;
     max-width: 800px;
@@ -38,21 +43,25 @@ const Wrapper = styled.div`
 `;
 
 const { getAllProducts } = ProductCreators;
+const { setCartState } = CartCreators;
 
 const Grid = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { allProducts, loading, totalElements, totalPages }: ProductSchema = useSelector(({ products }) => products);
+  const { allProducts, loading, totalElements }: ProductSchema = useSelector(({ products }) => products);
+
+  const isProductsAvailable = useMemo(() => {
+    return !loading && allProducts && allProducts.length > 0;
+  }, [loading, allProducts]);
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, []);
 
   return (
-    <Wrapper>
-      {!loading &&
-        allProducts?.length > 0 &&
-        allProducts.map(({ id, thumbnail, price, title }) => (
+    <Wrapper className={`${totalElements <= 4 && totalElements > 0 && 'wrapper--shrink'}`}>
+      {isProductsAvailable &&
+        allProducts?.map(({ id, thumbnail, price, title }) => (
           <Card
             key={id}
             image={thumbnail}
@@ -65,6 +74,21 @@ const Grid = () => {
             button={{
               label: 'Add to cart',
               onClickFavorite: () => console.log('API CALL'),
+              onClick: () => {
+                console.log('CLICKED BTN');
+                dispatch(setCartState({ id, thumbnail, price, title, quantity: 1 }));
+                // dispatch(
+                //   createCart({
+                //     userId: 1,
+                //     products: [
+                //       {
+                //         id,
+                //         quantity: 1,
+                //       },
+                //     ],
+                //   })
+                // );
+              },
             }}
           />
         ))}

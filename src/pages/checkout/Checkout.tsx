@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import ListItem from '../../components/ListItem/ListItem';
 import ListWrapper from '../../components/ListWrapper/ListWrapper';
 import CheckoutForm from '../../components/CheckoutForm/CheckoutForm';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { CartSchema } from '../../types';
+import { Creators as CartCreators } from '../../store/Cart';
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,7 +13,6 @@ const Wrapper = styled.div`
   gap: 24px;
   padding: 100px 40px;
   color: #fff;
-  max-width: 900px;
 
   .checkout__total {
     font-weight: 800;
@@ -42,16 +43,27 @@ const Wrapper = styled.div`
   }
 `;
 
+const { createCart, setCartState } = CartCreators;
+
 const Checkout = () => {
+  const { localProducts }: CartSchema = useSelector(({ cart }) => cart);
   const { currentLoggedUser } = useSelector(({ auth }) => auth);
-  console.log(currentLoggedUser);
+  console.log(localProducts);
   return (
     <Wrapper className="checkout">
       <h1>Checkout</h1>
       <h2>Items</h2>
-      <ListWrapper>
-        {[1, 1, 1].map((el) => (
-          <ListItem />
+      <ListWrapper total={localProducts?.length}>
+        {localProducts?.map(({ id, description, price, thumbnail, quantity, title }) => (
+          <ListItem
+            key={id}
+            id={id}
+            description={description}
+            price={price}
+            thumbnail={thumbnail}
+            quantity={quantity}
+            title={title}
+          />
         ))}
       </ListWrapper>
       <p className="checkout__total">Total: 240$</p>

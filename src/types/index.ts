@@ -11,6 +11,14 @@ export interface Product {
   thumbnail: string;
   images: string[];
 }
+export interface LocalProduct {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+  quantity: number;
+}
 export interface ProductSchema {
   allProducts: Product[] | null;
   product: Product | null;
@@ -51,9 +59,12 @@ export interface UserSchema {
   userRegistered: boolean;
 }
 
-export type WrapperProps = {
+export interface WrapperProps {
   children: JSX.Element[] | JSX.Element;
-};
+}
+export interface ListWrapperProps extends WrapperProps {
+  total: number;
+}
 
 export interface Message {
   payload: {
@@ -79,4 +90,24 @@ export interface ProductParams {
   total?: number;
   select?: string;
   q?: string;
+}
+
+export interface Cart {
+  id: number;
+  products: Product[];
+  total: number;
+  totalProducts: number;
+  totalQuantity: number;
+}
+
+export interface CartSchema {
+  allProducts: Product[] | null;
+  localProducts: LocalProduct[];
+  totalElements: number;
+  loading: boolean;
+  errorMessage: string | null;
+}
+
+export interface ProductOrder {
+  payload: LocalProduct;
 }

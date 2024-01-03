@@ -2,6 +2,7 @@ import productImage from '../../stories/assets/product.jpg';
 import trashIcon from '../../assets/trash.svg';
 import styled from 'styled-components';
 import { Button } from '../../stories/Button/Button';
+import { LocalProduct } from '../../types';
 
 const Item = styled.li`
   border: 2px solid #ffffff24;
@@ -13,6 +14,7 @@ const Item = styled.li`
   justify-content: space-between;
   align-items: center;
   position: relative;
+  width: 100%;
 
   > button {
     height: fit-content;
@@ -51,17 +53,19 @@ const Item = styled.li`
   img {
     height: 150px;
     width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
   }
 `;
-const ListItem = () => {
+const ListItem = ({ id, price, quantity, thumbnail, title }: LocalProduct) => {
   return (
     <Item>
       <Button label="" iconImage={trashIcon} />
       <div className="list-item__info">
-        <img src={productImage} alt="Gitara" />
-        <p className="list-item__title">Item</p>
-        <p className="list-item__quantity">Quantity: 4</p>
-        <p className="list-item__sum">Sum: 240$</p>
+        <img src={thumbnail} alt={title} />
+        <p className="list-item__title">{title}</p>
+        <p className="list-item__quantity">Quantity: {quantity}</p>
+        <p className="list-item__sum">Sum: {price}$</p>
       </div>
       <div>
         <Button

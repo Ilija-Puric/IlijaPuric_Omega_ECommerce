@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Button } from '../Button/Button';
-import shoppingCartSvg from '../assets/shopping-cart.svg';
+import shoppingCartSvg from '../assets/shopping-cart-dark.svg';
 import './card.css';
 
 type Sizes = 'small' | 'large' | 'medium';

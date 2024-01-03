@@ -33,7 +33,7 @@ const getAllProductsSuccess = (state: any, { payload: { products, total } }: Pro
   return {
     ...state,
     allProducts: products,
-    allItemsCount: total,
+    totalElements: total,
     totalPages: 0,
     loading: false,
     errorMessage: null,
