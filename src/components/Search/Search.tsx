@@ -35,7 +35,6 @@ const Search = () => {
   const debouncedValue = useDebounce<string>(search, 400);
 
   useEffect(() => {
-    console.log('CHANGE');
     dispatch(getAllProducts({ q: search }));
   }, [debouncedValue]);
 

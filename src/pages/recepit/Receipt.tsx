@@ -1,8 +1,7 @@
-import { CircularProgress, TextField } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { CartProduct, CartSchema } from '../../types';
-import { Creators as CartCreators } from '../../store/Cart';
+import { useSelector } from 'react-redux';
+import { CartSchema } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../stories/Button/Button';
 
@@ -85,10 +84,8 @@ const Wrapper = styled.div`
 
 const Receipt = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const {
     allProducts,
-    id,
     loading,
     totalProducts,
     totalQuantity,
@@ -98,7 +95,6 @@ const Receipt = () => {
     additionalMessage,
   }: CartSchema = useSelector(({ cart }) => cart);
 
-  console.log('CART BOUGHT', { id, allProducts, loading, totalProducts });
   const onClickHandler = () => {
     navigate('/');
   };

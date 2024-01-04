@@ -16,26 +16,20 @@ const loginUser = (state: any) => ({
   errorMessage: null,
 });
 
-const loginUserSuccess = (state: any, { payload }: any) => {
-  console.log('REDUCER SUCC', state, payload);
-  return {
-    ...state,
-    currentLoggedUser: payload,
-    loading: false,
-    errorMessage: null,
-  };
-};
+const loginUserSuccess = (state: any, { payload }: any) => ({
+  ...state,
+  currentLoggedUser: payload,
+  loading: false,
+  errorMessage: null,
+});
 
-const loginUserFailure = (state: any, { payload: { error } }: Error) => {
-  console.log('REDUCER ERROR', state, error);
-  return {
-    ...state,
-    currentLoggedUser: null,
-    errorMessage: error,
-    loading: false,
-    userRegistered: false,
-  };
-};
+const loginUserFailure = (state: any, { payload: { error } }: Error) => ({
+  ...state,
+  currentLoggedUser: null,
+  errorMessage: error,
+  loading: false,
+  userRegistered: false,
+});
 
 const AuthReducer = createReducer(initialState, {
   [LOGIN_USER]: loginUser,

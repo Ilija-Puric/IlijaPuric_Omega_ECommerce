@@ -10,10 +10,7 @@ const { toggleAlertMessage } = AlertMessageCreators;
 
 export function* createCart({ payload: { products, contact } }: any) {
   try {
-    console.log('SAGA', products);
-    console.log(contact);
     const { data } = yield call(createNewCart, products);
-    console.log(data);
     yield put({
       type: CREATE_CART_SUCCESS,
       payload: { ...data, ...contact },
@@ -40,8 +37,6 @@ export function* createCart({ payload: { products, contact } }: any) {
 
 export function* setCartState({ payload: { data, action } }: ProductPayload) {
   try {
-    console.log('SAGA SET CART STATE', data);
-    console.log('the acction', action);
     yield put({
       type: SET_CART_STATE_SUCCESS,
       payload: data,
@@ -54,7 +49,6 @@ export function* setCartState({ payload: { data, action } }: ProductPayload) {
       })
     );
   } catch (error) {
-    console.log(error);
     yield put({
       type: SET_CART_STATE_FAILURE,
       errorMessage: error,

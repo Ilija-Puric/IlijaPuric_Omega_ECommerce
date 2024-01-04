@@ -11,13 +11,14 @@
   border-radius: 8px;
   padding-bottom: 30px;
   overflow: hidden;
-  transition: box-shadow 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: background-color 0.35s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .storybook-card__title {
   color: #fff;
   font-weight: 700;
   font-family: 'Noto Sans', sans-serif;
+  width: fit-content;
 }
 
 .storybook-card__title:hover,
@@ -46,7 +47,7 @@
 }
 
 .storybook-card:hover {
-  box-shadow: rgba(214, 84, 3, 0.143) 0px 0px 20px 1px;
+  background-color: #353434;
 }
 .storybook-card__favorite {
   position: absolute;

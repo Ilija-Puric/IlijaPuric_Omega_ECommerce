@@ -30,7 +30,7 @@ export interface LocalProduct extends CartProduct {
   handleDelete?: () => void;
 }
 export interface ProductSchema {
-  allProducts: Product[] | null;
+  allProducts: Product[];
   product: Product | null;
   totalElements: number;
   totalPages: number;
@@ -113,14 +113,14 @@ export interface Cart {
 }
 
 export interface FavoriteSchema {
-  allFavorites: number[];
+  allFavorites: Product[];
   favorite: number | null;
   loading: boolean;
   errorMessage: string | null;
 }
 export interface CartSchema {
   id: number | null;
-  allProducts: Product[] | null;
+  allProducts: Product[];
   localProducts: LocalProduct[];
   totalElements: number;
   totalProducts: number;

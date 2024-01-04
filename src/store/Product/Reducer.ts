@@ -28,17 +28,14 @@ const getAllProducts = (state: any) => ({
   errorMessage: null,
 });
 
-const getAllProductsSuccess = (state: any, { payload: { products, total } }: ProductsPayload) => {
-  console.log(products, total);
-  return {
-    ...state,
-    allProducts: products,
-    totalElements: total,
-    totalPages: 0,
-    loading: false,
-    errorMessage: null,
-  };
-};
+const getAllProductsSuccess = (state: any, { payload: { products, total } }: ProductsPayload) => ({
+  ...state,
+  allProducts: products,
+  totalElements: total,
+  totalPages: 0,
+  loading: false,
+  errorMessage: null,
+});
 
 const getAllProductsFailure = (state: any, { error }: any) => ({
   ...state,
@@ -52,14 +49,12 @@ const getProductByID = (state: any) => ({
   errorMessage: null,
 });
 
-const getProductByIDSuccess = (state: any, { payload }: any) => {
-  return {
-    ...state,
-    product: payload,
-    loading: false,
-    errorMessage: null,
-  };
-};
+const getProductByIDSuccess = (state: any, { payload }: any) => ({
+  ...state,
+  product: payload,
+  loading: false,
+  errorMessage: null,
+});
 
 const getProductByIDFailure = (state: any, { error }: any) => ({
   ...state,

@@ -9,39 +9,15 @@ import { Creators as ProductCreators } from '../../store/Product';
 import { Creators as CartCreators } from '../../store/Cart';
 import { Creators as FavoriteCreators } from '../../store/Favorites';
 
-import NotFoundSvg from '../NotFoundSvg/NotFoundSvg';
+import NotFoundWrapper from '../NotFoundWrapper/NotFoundWrapper';
 import { FavoriteSchema, ProductSchema } from '../../types';
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 80px;
   padding: 50px 40px;
   position: relative;
-
-  &.wrapper--shrink {
-    grid-template-columns: repeat(auto-fit, minmax(350px, 400px));
-  }
-  .wrapper__not-found {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    height: 80vh;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    svg {
-      width: 450px;
-      margin: 0 auto;
-    }
-    .wrapper__not-found__text {
-      text-align: center;
-      color: #fff;
-      font-weight: 300;
-      font-size: 28px;
-    }
-  }
 
   @media screen and (max-width: 800px) {
     grid-template-columns: 1fr;
@@ -56,22 +32,23 @@ const { likeProduct } = FavoriteCreators;
 const Grid = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { allProducts, loading, totalElements }: ProductSchema = useSelector(({ products }) => products);
+  const { allProducts, loading }: ProductSchema = useSelector(({ products }) => products);
   const { allFavorites }: FavoriteSchema = useSelector(({ favorites }) => favorites);
 
-  const isProductsAvailable = useMemo(() => {
-    return !loading && allProducts && allProducts.length > 0;
-  }, [loading, allProducts]);
+  const isProductsAvailable: boolean = useMemo(() => {
+    return Boolean(!loading && allProducts.length > 0);
+  }, [loading, allProducts.length]);
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, []);
 
-  console.log('FAVORITES', allFavorites);
   return (
-    <Wrapper className={`${totalElements <= 4 && totalElements > 0 ? 'wrapper--shrink' : ''}`}>
-      {isProductsAvailable &&
-        allProducts?.map(({ id, thumbnail, price, title }) => (
+    <Wrapper style={{ minHeight: !isProductsAvailable ? '80vh' : 'auto' }}>
+      {loading ? (
+        <CircularProgress sx={{ color: '#ff590b' }} />
+      ) : isProductsAvailable ? (
+        allProducts.map(({ id, thumbnail, price, title, ...props }) => (
           <Card
             key={id}
             image={thumbnail}
@@ -81,24 +58,20 @@ const Grid = () => {
             onCardClick={() => {
               navigate(`/product/${id}`);
             }}
-            isFavorite={Boolean(allFavorites.find((element) => id === element))}
+            isFavorite={Boolean(allFavorites.find((element) => id === element?.id))}
             button={{
               label: 'Add to cart',
               onClickFavorite: () => {
-                dispatch(likeProduct(id));
+                dispatch(likeProduct({ id, thumbnail, price, title, ...props }));
               },
               onClick: () => {
                 dispatch(setCartState({ data: { id, thumbnail, price, title, quantity: 1 }, action: 'add' }));
               },
             }}
           />
-        ))}
-      {loading && <CircularProgress sx={{ color: '#ff590b' }} />}
-      {!loading && allProducts?.length === 0 && (
-        <div className="wrapper__not-found">
-          <NotFoundSvg />
-          <p className="wrapper__not-found__text">No results</p>
-        </div>
+        ))
+      ) : (
+        <NotFoundWrapper label="No results" />
       )}
     </Wrapper>
   );

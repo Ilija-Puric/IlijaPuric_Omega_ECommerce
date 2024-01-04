@@ -29,6 +29,7 @@ const initialState: CartSchema = {
 
 const createCart = (state: any, { payload }: any) => {
   return {
+    ...state,
     ...payload,
     loading: true,
     errorMessage: null,
@@ -36,9 +37,8 @@ const createCart = (state: any, { payload }: any) => {
 };
 
 const createCartSuccess = (state: any, { payload }: DefaultPayload) => {
-  console.log('PREV STATE', state);
-  console.log('CREATED CART SUCCESS', payload);
   return {
+    ...state,
     ...payload,
     localProducts: [],
     allProducts: payload.products,
@@ -61,9 +61,7 @@ const setCartState = (state: any) => ({
 
 const setCartStateSuccess = (state: CartSchema, { payload, action }: ProductOrder) => {
   const { id, quantity } = payload;
-  console.log('PAYLOAD SUCCESS CART', payload);
   const existingProductIndex = state.localProducts?.findIndex(({ id: localId }) => localId === id);
-  console.log(existingProductIndex);
 
   if (existingProductIndex !== -1) {
     if (action === 'add') {

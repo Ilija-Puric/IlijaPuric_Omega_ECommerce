@@ -31,12 +31,11 @@ export function* getAllProducts({ payload = {} }): Generator<any> {
 export function* getProductByID({ payload: { id } }: Id): Generator<any> {
   try {
     const { data }: any = yield call(fetchProductById, id);
-    console.log(data);
     yield put({
       type: GET_PRODUCT_BY_ID_SUCCESS,
       payload: data,
     });
-  } catch (error) {
+  } catch (error: any) {
     yield put({
       type: GET_PRODUCT_BY_ID_FAILURE,
       errorMessage: error,

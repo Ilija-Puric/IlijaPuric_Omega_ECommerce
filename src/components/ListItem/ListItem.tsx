@@ -3,6 +3,7 @@ import { Button } from '../../stories/Button/Button';
 import { LocalProduct } from '../../types';
 import { useDispatch } from 'react-redux';
 import { Creators as CartCreators } from '../../store/Cart';
+import { Link } from 'react-router-dom';
 
 const Item = styled.li`
   border: 2px solid #ffffff24;
@@ -53,6 +54,10 @@ const Item = styled.li`
   .list-item__info {
     flex-direction: column;
     align-items: flex-start;
+    a {
+      width: 100%;
+      height: 100%;
+    }
   }
   .list-item__quantity,
   .list-item__sum {
@@ -84,7 +89,9 @@ const ListItem = ({ id, price, quantity, thumbnail, title }: LocalProduct) => {
         </svg>
       </button>
       <div className="list-item__info">
-        <img src={thumbnail} alt={title} />
+        <Link to={`/product/${id}`}>
+          <img src={thumbnail} alt={title} />
+        </Link>
         <p className="list-item__title">{title}</p>
         <p className="list-item__quantity">Quantity: {quantity}</p>
         <p className="list-item__sum">Sum: {price * quantity}$</p>

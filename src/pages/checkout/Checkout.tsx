@@ -5,8 +5,6 @@ import ListItem from '../../components/ListItem/ListItem';
 import ListWrapper from '../../components/ListWrapper/ListWrapper';
 import CheckoutForm from '../../components/CheckoutForm/CheckoutForm';
 import { CartSchema } from '../../types';
-import { Creators as CartCreators } from '../../store/Cart';
-import { useMemo } from 'react';
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,6 +12,10 @@ const Wrapper = styled.div`
   gap: 24px;
   padding: 100px 40px;
   color: #fff;
+
+  h1 {
+    font-size: 36px;
+  }
 
   .checkout__total {
     font-weight: 800;

@@ -1,6 +1,6 @@
 import { createReducer } from 'reduxsauce';
 import { Types as ProjectsTypes } from './index';
-import { FavoriteSchema, ProductsPayload } from '../../types';
+import { FavoriteSchema } from '../../types';
 
 const {
   LIKE_PRODUCT,
@@ -26,13 +26,10 @@ const likeProduct = (state: any) => ({
 });
 
 const likeProductSuccess = (state: any, { payload }: any) => {
-  console.log(payload);
-  const existingProductIndex = state.allFavorites?.findIndex((id: number) => id === payload);
+  const existingProductIndex = state.allFavorites?.findIndex((element: any) => element?.id === payload?.id);
   if (existingProductIndex === -1) {
-    console.log('LIKED ');
     state.allFavorites = [...state.allFavorites, payload];
   } else {
-    console.log('UNLIKED');
     state.allFavorites.splice(existingProductIndex, 1);
   }
   return {
@@ -54,14 +51,12 @@ const unlikeProduct = (state: any) => ({
   errorMessage: null,
 });
 
-const unlikeProductSuccess = (state: any, { payload }: any) => {
-  return {
-    ...state,
-    product: payload,
-    loading: false,
-    errorMessage: null,
-  };
-};
+const unlikeProductSuccess = (state: any, { payload }: any) => ({
+  ...state,
+  product: payload,
+  loading: false,
+  errorMessage: null,
+});
 
 const unlikeProductFailure = (state: any, { error }: any) => ({
   ...state,

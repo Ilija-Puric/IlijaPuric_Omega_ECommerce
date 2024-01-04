@@ -1,16 +1,9 @@
 import { put, call, select } from 'redux-saga/effects';
 import { Types as AuthTypes } from './index';
-import {
-  login,
-  // logout,
-} from './Api';
+import { login } from './Api';
 import { Creators as AlertMessageCreators } from '../AlertMessage';
 
-const {
-  LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAILURE,
-  // LOGOUT_USER_SUCCESS,
-} = AuthTypes;
+const { LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE } = AuthTypes;
 const { toggleAlertMessage } = AlertMessageCreators;
 
 export function* loginUser({ payload }: any) {
@@ -36,23 +29,3 @@ export function* loginUser({ payload }: any) {
     });
   }
 }
-
-// export function* logoutUser({ payload }) {
-//   try {
-//     const { history } = payload;
-//     const { refresh_token } = yield select(currentLoggedUser);
-//     yield call(logout, refresh_token);
-//     yield put({
-//       type: LOGOUT_USER_SUCCESS,
-//     });
-//     localStorage.clear();
-//     history.replace('/login');
-//   } catch (error) {
-//     yield put(
-//       toggleAlertMessage({
-//         messageType: 'error',
-//         message: error.message,
-//       })
-//     );
-//   }
-// }

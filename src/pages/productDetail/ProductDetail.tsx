@@ -243,7 +243,7 @@ const ProductDetail = () => {
   };
 
   const changeImage = (image: string) => setSelectedImage(image);
-  const isFavorite = Boolean(allFavorites.find((element) => element === product?.id));
+  const isFavorite = Boolean(allFavorites.find((element) => element?.id === product?.id));
 
   return (
     <Product>
@@ -278,7 +278,7 @@ const ProductDetail = () => {
               <div className="product__thumbnail-wrapper">
                 <svg
                   className={`product__favorite ${isFavorite && 'product__favorite--liked'}`}
-                  onClick={() => dispatch(likeProduct(product?.id))}
+                  onClick={() => dispatch(likeProduct(product))}
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
                   height="32"
@@ -308,12 +308,7 @@ const ProductDetail = () => {
                     outlined={true}
                   />
                   <Button
-                    onClick={() =>
-                      setCounter((prevState) => {
-                        console.log('MINUS');
-                        return prevState - 1;
-                      })
-                    }
+                    onClick={() => setCounter((prevState) => prevState - 1)}
                     disabled={counter <= 0}
                     label="-1"
                     primary={false}

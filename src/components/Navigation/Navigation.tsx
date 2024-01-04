@@ -7,7 +7,6 @@ const Navigation = () => {
   const { currentLoggedUser } = useSelector(({ auth }) => auth);
   let user = '';
   if (currentLoggedUser) user = currentLoggedUser?.image;
-  console.log(user);
 
   return (
     <Header
