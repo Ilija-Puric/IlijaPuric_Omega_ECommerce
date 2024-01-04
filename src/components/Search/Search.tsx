@@ -20,13 +20,9 @@ const theme = createTheme({
 const Input = styled.div`
   width: 100%;
   height: 100%;
-  padding: 100px 40px 0 40px;
-  padding-top: 100px;
-  ${inputReset}
+  max-width: 800px;
 
-  @media screen and (max-width: 800px) {
-    padding: 100px 20px 0 20px;
-  }
+  ${inputReset}
 `;
 
 const Search = () => {
