@@ -1,7 +1,9 @@
 import { TextField, Autocomplete } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import inputReset, { categories } from '../../constants';
 import styled from 'styled-components';
+import inputReset, { categories } from '../../constants';
+import { Creators as ProductCreators } from '../../store/Product';
+import { useDispatch } from 'react-redux';
 
 const theme = createTheme({
   palette: {
@@ -26,11 +28,20 @@ const Wrapper = styled.div`
   }
 `;
 
+const { getAllProducts } = ProductCreators;
+
 const CategorySearch = () => {
+  const dispatch = useDispatch();
   return (
     <Wrapper>
       <ThemeProvider theme={theme}>
-        <Autocomplete options={categories} renderInput={(params: any) => <TextField {...params} label="Category" />} />
+        <Autocomplete
+          options={categories}
+          onChange={(event, value) => {
+            dispatch(getAllProducts({ category: value }));
+          }}
+          renderInput={(params: any) => <TextField {...params} label="Category" />}
+        />
       </ThemeProvider>
     </Wrapper>
   );

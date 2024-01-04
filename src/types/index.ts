@@ -104,6 +104,11 @@ export interface ProductParams {
   total?: number;
   select?: string;
   q?: string;
+  category?: string;
+}
+
+export interface PayloadProductParams {
+  payload: ProductParams;
 }
 
 export interface Cart {
