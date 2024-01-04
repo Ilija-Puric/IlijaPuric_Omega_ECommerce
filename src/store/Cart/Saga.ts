@@ -22,7 +22,6 @@ export function* createCart({ payload: { products, contact } }: any) {
       })
     );
   } catch (error: any) {
-    alert(error?.message);
     yield put({
       type: CREATE_CART_FAILURE,
       errorMessage: error,
@@ -49,9 +48,7 @@ export function* setCartState({ payload: { data, action } }: ProductPayload) {
         message: 'You have succesfully altered the local cart',
       })
     );
-    // alert('You have succesfully altered the local cart');
   } catch (error: any) {
-    alert(error?.message);
     yield put({
       type: SET_CART_STATE_FAILURE,
       errorMessage: error,

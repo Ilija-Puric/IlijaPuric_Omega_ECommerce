@@ -9,6 +9,7 @@ import Receipt from './pages/recepit/Receipt';
 import NotFound from './pages/notFound/NotFound';
 import ProductDetail from './pages/productDetail/ProductDetail';
 import Favorites from './pages/favorites/Favorites';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const { store, persistor } = configureStore();
 

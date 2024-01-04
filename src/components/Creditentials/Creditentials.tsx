@@ -5,13 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { Button } from '../../stories/Button/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
+
 import vegaLogo from '../../assets/vegait_logo_white.png';
 import inputReset from '../../constants/index';
 import userSchema from '../../validations/UserValidation.ts';
 import { Creators as AuthCreators } from '../../store/Auth/index';
 import { Creators as AlertMessageCreators } from '../../store/AlertMessage';
-import { useDispatch } from 'react-redux';
 import { Account } from '../../types/index.ts';
 
 const theme = createTheme({
@@ -62,12 +64,20 @@ const Creditentials = (): JSX.Element => {
 
   const onSubmit = ({ name, password }: Account) => {
     const user = { name, password };
-    dispatch(
-      loginUser({
-        user,
-        navigate,
-      })
-    );
+    try {
+      dispatch(
+        loginUser({
+          user,
+          navigate,
+          toast: {
+            success: () => toast.success(`Logged in`),
+            error: () => toast.error('Wrong credentials'),
+          },
+        })
+      );
+    } catch (e) {
+      toast.error(`Couldn't log in`);
+    }
   };
 
   return (
@@ -105,6 +115,7 @@ const Creditentials = (): JSX.Element => {
 
         <Button label="Login" primary type="submit" />
       </ThemeProvider>
+      <ToastContainer />
     </Wrapper>
   );
 };

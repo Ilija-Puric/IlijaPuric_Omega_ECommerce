@@ -7,7 +7,7 @@ const { LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE } = AuthTypes;
 const { toggleAlertMessage } = AlertMessageCreators;
 
 export function* loginUser({ payload }: any) {
-  const { user, navigate } = payload;
+  const { user, navigate, toast } = payload;
   try {
     const { data } = yield call(login, user);
     const { token } = data;
@@ -21,7 +21,7 @@ export function* loginUser({ payload }: any) {
     yield localStorage.setItem('access_token', token);
     yield navigate('/');
   } catch (error: any) {
-    alert(error.message);
+    toast.error();
     yield put({
       type: LOGIN_USER_FAILURE,
       payload: {

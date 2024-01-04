@@ -12,9 +12,7 @@ export function* getAllProducts({ payload = {} }: any): Generator<any> {
     let response;
     if (payload?.category) {
       response = yield call(fetchProductsByCategory, payload?.category);
-      console.log(response);
     } else {
-      console.log(payload);
       response = yield call(fetchAllProducts, payload);
     }
     const { data } = response as any;
@@ -23,7 +21,6 @@ export function* getAllProducts({ payload = {} }: any): Generator<any> {
       payload: data,
     });
   } catch (error: any) {
-    alert(error?.message);
     yield put({
       type: GET_ALL_PRODUCTS_FAILURE,
     });
@@ -44,7 +41,6 @@ export function* getProductByID({ payload: { id } }: Id): Generator<any> {
       payload: data,
     });
   } catch (error: any) {
-    alert(error?.message);
     yield put({
       type: GET_PRODUCT_BY_ID_FAILURE,
       errorMessage: error,
