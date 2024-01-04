@@ -62,7 +62,7 @@ const Checkout = () => {
       {localProducts?.length > 0 ? (
         <>
           <ListWrapper total={localProducts?.length}>
-            {localProducts?.map(({ id, description, price, thumbnail, quantity, title }) => (
+            {localProducts?.map(({ id, description, price, thumbnail, quantity, title, favorite }) => (
               <ListItem
                 key={id}
                 id={id}
@@ -71,6 +71,7 @@ const Checkout = () => {
                 thumbnail={thumbnail}
                 quantity={quantity}
                 title={title}
+                favorite={favorite}
               />
             ))}
           </ListWrapper>

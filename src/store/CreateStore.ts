@@ -14,7 +14,7 @@ export const rootReducer = createRootReducer;
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'products', 'cart'],
+  whitelist: ['auth', 'products', 'cart', 'favorites'],
 };
 export default function configureStore(preloadedState: any) {
   const sagaMiddleware = createSagaMiddleware();

@@ -1,6 +1,6 @@
 import { createReducer } from 'reduxsauce';
 import { Types as ProjectsTypes } from './index';
-import { Cart, CartSchema, DefaultPayload, ProductOrder } from '../../types';
+import { CartSchema, DefaultPayload, ProductOrder } from '../../types';
 
 const {
   CREATE_CART,
@@ -64,6 +64,7 @@ const setCartStateSuccess = (state: CartSchema, { payload, action }: ProductOrde
   console.log('PAYLOAD SUCCESS CART', payload);
   const existingProductIndex = state.localProducts?.findIndex(({ id: localId }) => localId === id);
   console.log(existingProductIndex);
+
   if (existingProductIndex !== -1) {
     if (action === 'add') {
       state.localProducts[existingProductIndex].quantity += 1;

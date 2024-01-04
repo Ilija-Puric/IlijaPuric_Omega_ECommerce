@@ -7,8 +7,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Card } from '../../stories/Card/Card';
 import { Creators as ProductCreators } from '../../store/Product';
 import { Creators as CartCreators } from '../../store/Cart';
+import { Creators as FavoriteCreators } from '../../store/Favorites';
+
 import NotFoundSvg from '../NotFoundSvg/NotFoundSvg';
-import { ProductSchema } from '../../types';
+import { FavoriteSchema, ProductSchema } from '../../types';
 
 const Wrapper = styled.div`
   display: grid;
@@ -49,11 +51,13 @@ const Wrapper = styled.div`
 
 const { getAllProducts } = ProductCreators;
 const { setCartState } = CartCreators;
+const { likeProduct } = FavoriteCreators;
 
 const Grid = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { allProducts, loading, totalElements }: ProductSchema = useSelector(({ products }) => products);
+  const { allFavorites }: FavoriteSchema = useSelector(({ favorites }) => favorites);
 
   const isProductsAvailable = useMemo(() => {
     return !loading && allProducts && allProducts.length > 0;
@@ -63,6 +67,7 @@ const Grid = () => {
     dispatch(getAllProducts());
   }, []);
 
+  console.log('FAVORITES', allFavorites);
   return (
     <Wrapper className={`${totalElements <= 4 && totalElements > 0 ? 'wrapper--shrink' : ''}`}>
       {isProductsAvailable &&
@@ -76,9 +81,12 @@ const Grid = () => {
             onCardClick={() => {
               navigate(`/product/${id}`);
             }}
+            isFavorite={Boolean(allFavorites.find((element) => id === element))}
             button={{
               label: 'Add to cart',
-              onClickFavorite: () => console.log('API CALL'),
+              onClickFavorite: () => {
+                dispatch(likeProduct(id));
+              },
               onClick: () => {
                 dispatch(setCartState({ data: { id, thumbnail, price, title, quantity: 1 }, action: 'add' }));
               },

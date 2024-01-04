@@ -19,12 +19,13 @@ export interface CartProduct {
   quantity: number;
 }
 
-export type Action = 'empty' | 'add' | 'subtract' | 'replace';
+export type Action = 'empty' | 'add' | 'subtract' | 'replace' | 'like' | 'unlike';
 export interface LocalProduct extends CartProduct {
   title: string;
   description: string;
   price: number;
   thumbnail: string;
+  favorite: boolean;
   total?: number;
   handleDelete?: () => void;
 }
@@ -111,6 +112,12 @@ export interface Cart {
   discountedTotal?: number;
 }
 
+export interface FavoriteSchema {
+  allFavorites: number[];
+  favorite: number | null;
+  loading: boolean;
+  errorMessage: string | null;
+}
 export interface CartSchema {
   id: number | null;
   allProducts: Product[] | null;

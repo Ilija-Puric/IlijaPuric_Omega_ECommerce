@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import { Types as CartTypes } from './index';
 import { createNewCart } from './Api';
 import { Creators as AlertMessageCreators } from '../AlertMessage';
-import { LocalProduct, ProductOrder, ProductPayload } from '../../types';
+import { ProductPayload } from '../../types';
 
 const { CREATE_CART_SUCCESS, CREATE_CART_FAILURE, SET_CART_STATE_SUCCESS, SET_CART_STATE_FAILURE } = CartTypes;
 

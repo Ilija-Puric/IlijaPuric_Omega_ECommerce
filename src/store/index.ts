@@ -5,6 +5,7 @@ import AlertMessageReducer from './AlertMessage/Reducer';
 import AuthReducer from './Auth/Reducer';
 import ProductReducer from './Product/Reducer';
 import CartReducer from './Cart/Reducer';
+import FavoritesReducer from './Favorites/Reducer';
 
 const history = createBrowserHistory();
 
@@ -14,4 +15,5 @@ export default combineReducers({
   auth: AuthReducer,
   products: ProductReducer,
   cart: CartReducer,
+  favorites: FavoritesReducer,
 });
