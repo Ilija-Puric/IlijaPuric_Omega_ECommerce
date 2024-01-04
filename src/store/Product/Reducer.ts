@@ -32,7 +32,8 @@ const getAllProductsSuccess = (state: any, { payload: { products, total } }: Pro
   ...state,
   allProducts: products,
   totalElements: total,
-  totalPages: 0,
+  currentPage: 0,
+  totalPages: 10,
   loading: false,
   errorMessage: null,
 });
