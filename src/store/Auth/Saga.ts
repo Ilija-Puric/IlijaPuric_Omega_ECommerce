@@ -21,6 +21,7 @@ export function* loginUser({ payload }: any) {
     yield localStorage.setItem('access_token', token);
     yield navigate('/');
   } catch (error: any) {
+    alert(error.message);
     yield put({
       type: LOGIN_USER_FAILURE,
       payload: {

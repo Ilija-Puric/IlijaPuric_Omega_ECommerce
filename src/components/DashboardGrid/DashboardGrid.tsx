@@ -29,7 +29,7 @@ const { getAllProducts } = ProductCreators;
 const { setCartState } = CartCreators;
 const { likeProduct } = FavoriteCreators;
 
-const Grid = () => {
+const DashboardGrid = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { allProducts, loading }: ProductSchema = useSelector(({ products }) => products);
@@ -77,4 +77,4 @@ const Grid = () => {
   );
 };
 
-export default Grid;
+export default DashboardGrid;

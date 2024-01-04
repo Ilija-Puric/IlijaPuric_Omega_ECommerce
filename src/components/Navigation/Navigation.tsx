@@ -23,9 +23,6 @@ const Navigation = () => {
       onLogin={() => {
         navigate('/login');
       }}
-      onLogout={() => {
-        navigate('/');
-      }}
     />
   );
 };

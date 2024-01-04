@@ -16,6 +16,7 @@ export function* getAllProducts({ payload = {} }): Generator<any> {
       payload: data,
     });
   } catch (error: any) {
+    alert(error?.message);
     yield put({
       type: GET_ALL_PRODUCTS_FAILURE,
     });
@@ -36,6 +37,7 @@ export function* getProductByID({ payload: { id } }: Id): Generator<any> {
       payload: data,
     });
   } catch (error: any) {
+    alert(error?.message);
     yield put({
       type: GET_PRODUCT_BY_ID_FAILURE,
       errorMessage: error,

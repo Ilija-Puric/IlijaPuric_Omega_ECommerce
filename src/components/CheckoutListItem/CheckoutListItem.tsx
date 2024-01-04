@@ -74,7 +74,7 @@ const Item = styled.li`
 
 const { setCartState } = CartCreators;
 
-const ListItem = ({ id, price, quantity, thumbnail, title }: LocalProduct) => {
+const CheckoutListItem = ({ id, price, quantity, thumbnail, title }: LocalProduct) => {
   const dispatch = useDispatch();
   return (
     <Item>
@@ -118,4 +118,4 @@ const ListItem = ({ id, price, quantity, thumbnail, title }: LocalProduct) => {
   );
 };
 
-export default ListItem;
+export default CheckoutListItem;

@@ -1,8 +1,8 @@
 import { CircularProgress } from '@mui/material';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { CartSchema } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import { CartSchema } from '../../types';
 import { Button } from '../../stories/Button/Button';
 
 const Wrapper = styled.div`

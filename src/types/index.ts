@@ -13,6 +13,13 @@ export interface Product {
   quantity?: number;
   total?: number;
 }
+export interface ProductWrapper {
+  product: Product;
+}
+export interface ControlsProps {
+  id: string | undefined;
+  product: Product;
+}
 
 export interface CartProduct {
   id: number;
@@ -71,9 +78,6 @@ export interface UserSchema {
 
 export interface WrapperProps {
   children: JSX.Element[] | JSX.Element;
-}
-export interface ListWrapperProps extends WrapperProps {
-  total: number;
 }
 
 export interface Message {

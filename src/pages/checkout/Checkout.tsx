@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ListItem from '../../components/ListItem/ListItem';
-import ListWrapper from '../../components/ListWrapper/ListWrapper';
+import CheckoutListItem from '../../components/CheckoutListItem/CheckoutListItem';
+import CheckoutListWrapper from '../../components/CheckoutListWrapper/CheckoutListWrapper';
 import CheckoutForm from '../../components/CheckoutForm/CheckoutForm';
 import { CartSchema } from '../../types';
 
@@ -63,9 +63,9 @@ const Checkout = () => {
       <h2>Items</h2>
       {localProducts?.length > 0 ? (
         <>
-          <ListWrapper total={localProducts?.length}>
+          <CheckoutListWrapper>
             {localProducts?.map(({ id, description, price, thumbnail, quantity, title, favorite }) => (
-              <ListItem
+              <CheckoutListItem
                 key={id}
                 id={id}
                 description={description}
@@ -76,7 +76,7 @@ const Checkout = () => {
                 favorite={favorite}
               />
             ))}
-          </ListWrapper>
+          </CheckoutListWrapper>
           <p className="checkout__total">Total: {sumWithInitial}$</p>
         </>
       ) : (

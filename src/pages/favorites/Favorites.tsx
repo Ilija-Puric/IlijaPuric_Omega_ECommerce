@@ -1,14 +1,15 @@
+import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Grade } from '@mui/icons-material';
+import { CircularProgress } from '@mui/material';
 import { FavoriteSchema } from '../../types';
 import { Creators as FavoritesCreators } from '../../store/Favorites';
-import { CircularProgress } from '@mui/material';
 import NotFoundWrapper from '../../components/NotFoundWrapper/NotFoundWrapper';
-import { useMemo } from 'react';
 
 const { likeProduct } = FavoritesCreators;
+
 const Wrapper = styled.div`
   height: 100%;
   width: 100%;
@@ -125,8 +126,8 @@ const Wrapper = styled.div`
   }
 `;
 const Favorites = () => {
-  const { allFavorites, loading }: FavoriteSchema = useSelector(({ favorites }) => favorites);
   const dispatch = useDispatch();
+  const { allFavorites, loading }: FavoriteSchema = useSelector(({ favorites }) => favorites);
 
   const isFavoritesAvailable: boolean = useMemo(() => {
     return Boolean(!loading && allFavorites && allFavorites.length > 0);
